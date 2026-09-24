@@ -7,7 +7,7 @@ import { api } from '../../api'
 import { processItem } from '../../utils/email-parser'
 import { utcToLocalDate } from '../../utils'
 
-const { telegramApp, loading, useUTCDate } = useGlobalState()
+const { telegramApp, loading, useUTCDate, isDark } = useGlobalState()
 const route = useRoute()
 
 const curMail = ref({})
@@ -21,16 +21,21 @@ const escapeHtml = (value) => String(value || '')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;')
 
-const emailFrameStyles = `
+const emailFrameStyles = computed(() => {
+    const dark = isDark.value
+    const colors = dark
+        ? { bg: '#181b21', text: '#e5e7eb', link: '#93c5fd', border: '#343b48' }
+        : { bg: '#ffffff', text: '#1f2937', link: '#2563eb', border: '#dbe3ee' }
+    return `
 <style>
-  :root { color-scheme: light; }
+  :root { color-scheme: ${dark ? 'dark' : 'light'}; }
   html, body {
     margin: 0 !important;
     padding: 0 !important;
     min-width: 0 !important;
     width: 100% !important;
-    background: #ffffff !important;
-    color: #1f2937 !important;
+    background: ${colors.bg} !important;
+    color: ${colors.text} !important;
     font: 14px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
@@ -39,10 +44,11 @@ const emailFrameStyles = `
   img, video, svg, canvas { max-width: 100% !important; height: auto !important; }
   table { max-width: 100% !important; width: auto !important; height: auto !important; }
   pre, code { white-space: pre-wrap !important; overflow-wrap: anywhere !important; word-break: break-word !important; }
-  a { color: #2563eb !important; overflow-wrap: anywhere !important; }
-  blockquote { margin-left: 0 !important; margin-right: 0 !important; padding-left: 12px !important; border-left: 3px solid #dbeafe !important; }
+  a { color: ${colors.link} !important; overflow-wrap: anywhere !important; }
+  blockquote { margin-left: 0 !important; margin-right: 0 !important; padding-left: 12px !important; border-left: 3px solid ${colors.border} !important; }
 </style>
 `
+})
 
 const frameSource = computed(() => {
     const message = curMail.value?.message || ''
@@ -50,9 +56,9 @@ const frameSource = computed(() => {
     const hasHtml = /<([a-z][\w-]*)(?:\s[^>]*)?>/i.test(message)
     const body = hasHtml ? message : `<pre>${escapeHtml(message)}</pre>`
     if (/<\/head>/i.test(body)) {
-        return body.replace(/<\/head>/i, `${emailFrameStyles}</head>`)
+        return body.replace(/<\/head>/i, `${emailFrameStyles.value}</head>`)
     }
-    return `${emailFrameStyles}${body}`
+    return `${emailFrameStyles.value}${body}`
 })
 
 const fitFrame = () => {
@@ -119,7 +125,7 @@ onBeforeUnmount(() => frameObserver.value?.disconnect())
 </script>
 
 <template>
-    <div class="telegram-mail-page">
+    <div class="telegram-mail-page" :class="{ 'is-dark': isDark }">
         <main v-if="curMail.message" class="mail-shell">
             <header class="mail-header">
                 <div class="mail-eyebrow">Telegram Mini App</div>
@@ -297,6 +303,47 @@ h1 {
     place-items: center;
     color: #64748b;
     font-size: 14px;
+}
+
+.telegram-mail-page.is-dark {
+    background: #0f1116;
+    color: #e5e7eb;
+}
+
+.telegram-mail-page.is-dark .mail-header,
+.telegram-mail-page.is-dark .mail-content-card {
+    border-color: #2b313c;
+    background: #181b21;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.24);
+}
+
+.telegram-mail-page.is-dark .mail-eyebrow,
+.telegram-mail-page.is-dark .meta-label,
+.telegram-mail-page.is-dark .content-hint,
+.telegram-mail-page.is-dark .mail-footer {
+    color: #9ca3af;
+}
+
+.telegram-mail-page.is-dark h1,
+.telegram-mail-page.is-dark .content-title {
+    color: #f8fafc;
+}
+
+.telegram-mail-page.is-dark .meta-item {
+    border-color: #303744;
+    background: #20252d;
+}
+
+.telegram-mail-page.is-dark .meta-value {
+    color: #d1d5db;
+}
+
+.telegram-mail-page.is-dark .content-heading {
+    border-bottom-color: #2b313c;
+}
+
+.telegram-mail-page.is-dark .mail-frame {
+    background: #181b21;
 }
 
 @media (max-width: 560px) {
