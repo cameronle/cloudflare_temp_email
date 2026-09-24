@@ -5,7 +5,8 @@ compatibility_flags = ["nodejs_compat"]
 keep_vars = true
 
 routes = [
-  { pattern = "temp-api.865455.xyz", custom_domain = true }
+  { pattern = "temp-api.865455.xyz", custom_domain = true },
+  { pattern = "api.lxw.us.kg", custom_domain = true }
 ]
 
 [triggers]
@@ -20,8 +21,8 @@ ENABLE_USER_CREATE_EMAIL = true
 ENABLE_USER_DELETE_EMAIL = true
 ENABLE_AUTO_REPLY = false
 ADMIN_USER_ROLE = "admin"
-FRONTEND_URL = "https://temp.865455.xyz"
-BACKEND_URL = "https://temp-api.865455.xyz"
+FRONTEND_URL = "https://temp.lxw.us.kg"
+BACKEND_URL = "https://api.lxw.us.kg"
 DISABLE_SHOW_GITHUB = true
 TG_MAX_ADDRESS = 5
 TG_ALLOW_USER_LANG = true
