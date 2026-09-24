@@ -162,7 +162,7 @@ onBeforeUnmount(() => frameObserver.value?.disconnect())
                     title="Email content"
                     sandbox=""
                     referrerpolicy="no-referrer"
-                    scrolling="no"
+                    scrolling="auto"
                     @load="handleFrameLoad"
                 />
             </section>
@@ -286,8 +286,12 @@ h1 {
     width: 100%;
     min-height: 360px;
     height: 420px;
+    max-height: calc(100dvh - 250px);
     border: 0;
     background: #ffffff;
+    overflow: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
 }
 
 .mail-footer {
