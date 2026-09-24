@@ -14,8 +14,8 @@ crons = ["0 */6 * * *"]
 [vars]
 DEFAULT_LANG = "zh"
 PREFIX = "tmp"
-DEFAULT_DOMAINS = ["mail.865455.xyz"]
-DOMAINS = ["mail.865455.xyz"]
+DEFAULT_DOMAINS = ["lxw.us.kg"]
+DOMAINS = ["lxw.us.kg"]
 ENABLE_USER_CREATE_EMAIL = true
 ENABLE_USER_DELETE_EMAIL = true
 ENABLE_AUTO_REPLY = false
