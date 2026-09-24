@@ -23,8 +23,14 @@ ADMIN_USER_ROLE = "admin"
 FRONTEND_URL = "https://temp.865455.xyz"
 BACKEND_URL = "https://temp-api.865455.xyz"
 DISABLE_SHOW_GITHUB = true
+TG_MAX_ADDRESS = 5
+TG_ALLOW_USER_LANG = true
 
 [[d1_databases]]
 binding = "DB"
 database_name = "temp-mail-db-865455"
 database_id = "1c8802be-91b5-435b-9b27-89150ab32e69"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "31ebb1a4a08c411daa7e5c07711c7a1d"
