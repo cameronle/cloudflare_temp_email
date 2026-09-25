@@ -33,7 +33,7 @@
 
 ### Improvements
 
-- chore: |Deployment| 将生产网页、API 与 Telegram Mini App 主入口从 `lxw.us.kg` 迁移至 `865455.xyz`，主网页使用 `mail.865455.xyz`
+- chore: |Deployment| 将生产网页、API 与 Telegram Mini App 主入口从 `lxw.us.kg` 迁移至 `865455.xyz`，主网页使用 `mail.865455.xyz`、API 使用 `mail-api.865455.xyz`
 - chore: |Deployment| 清理已完成迁移的 `temp.lxw.us.kg`、`tg.lxw.us.kg` 与 `api.lxw.us.kg` 旧入口
 - chore: |Deployment| 关闭网页/API 匿名创建邮箱，保留已登录用户、Telegram 创建及未知地址收件
 - fix: |Telegram Mini App| 将邮件正文上方的元信息恢复为紧凑标签样式，保留正文滚动、深色主题及邮件内容布局
