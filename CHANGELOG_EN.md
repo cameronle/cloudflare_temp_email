@@ -10,7 +10,7 @@
 
 ### Features
 
-- chore: |Deployment| Add `865455.xyz` as a production mailbox domain, preparing the root-domain Catch-all migration from the legacy mail Worker
+- chore: |Deployment| Add `865455.xyz` and `lqq.us.kg` as production mailbox domains, preparing the Catch-all migration from the legacy mail Worker
 - feat: |Webhook| Support random or specified email IDs in the test dialog, with request-body validation, mailbox ownership checks, existing UI languages and Chinese/English errors
 - feat: |Webhook| Support signed attachment URLs without S3, plain URL and Markdown link lists, with case-insensitive signatures bound to the inserted email and original download filenames; deny attachment downloads when Webhook is disabled (issue #1142)
 - feat: |Worker| Add `DISABLE_ADDRESS_UPDATED_AT` to disable individual and user-wide address activity keep-alive updates and built-in manual/scheduled inactive-address cleanup, reducing D1 writes
