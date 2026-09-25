@@ -34,6 +34,7 @@
 ### Improvements
 
 - chore: |Deployment| 将生产网页、API 与 Telegram Mini App 主入口从 `lxw.us.kg` 迁移至 `865455.xyz`，保留旧域名作为回滚别名
+- chore: |Deployment| 清理已完成迁移的 `temp.lxw.us.kg`、`tg.lxw.us.kg` 与 `api.lxw.us.kg` 旧入口
 - fix: |Telegram Mini App| 将邮件正文上方的元信息恢复为紧凑标签样式，保留正文滚动、深色主题及邮件内容布局
 - fix: |Frontend| 统一邮箱、邮箱地址、用户账号与管理后台的核心界面术语，并补齐附加语言缺失的邮件状态与远程图片文案（issue #1129）
 - feat: |发信页面| 优化用户和 Admin 发信页面的信息层级与响应式布局，增加正文格式工具栏、草稿状态、底部发送操作区及隔离的 HTML 预览
