@@ -17,6 +17,7 @@ PREFIX = "tmp"
 DEFAULT_DOMAINS = ["lxw.us.kg", "865455.xyz", "lqq.us.kg"]
 DOMAINS = ["lxw.us.kg", "865455.xyz", "lqq.us.kg"]
 ENABLE_USER_CREATE_EMAIL = true
+DISABLE_ANONYMOUS_USER_CREATE_EMAIL = true
 ENABLE_USER_DELETE_EMAIL = true
 ENABLE_AUTO_REPLY = false
 ADMIN_USER_ROLE = "admin"
