@@ -130,23 +130,16 @@ onBeforeUnmount(() => frameObserver.value?.disconnect())
             <header class="mail-header">
                 <div class="mail-eyebrow">Telegram Mini App</div>
                 <h1>{{ curMail.subject || 'No subject' }}</h1>
-                <div class="mail-meta">
-                    <div class="meta-item">
-                        <span class="meta-label">From</span>
-                        <span class="meta-value">{{ curMail.source || '—' }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">To</span>
-                        <span class="meta-value">{{ curMail.address || '—' }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Date</span>
-                        <span class="meta-value">{{ utcToLocalDate(curMail.created_at, useUTCDate) }}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">ID</span>
-                        <span class="meta-value">#{{ curMail.id }}</span>
-                    </div>
+                <div class="mail-meta-tags" aria-label="Email information">
+                    <n-tag type="info">
+                        ID: {{ curMail.id }}
+                    </n-tag>
+                    <n-tag type="info">
+                        Date: {{ utcToLocalDate(curMail.created_at, useUTCDate) }}
+                    </n-tag>
+                    <n-tag type="info">
+                        FROM: {{ curMail.source || '—' }}
+                    </n-tag>
                 </div>
             </header>
 
@@ -219,41 +212,20 @@ h1 {
     word-break: break-word;
 }
 
-.mail-meta {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 9px;
+.mail-meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
 }
 
-.meta-item {
-    min-width: 0;
-    padding: 10px 12px;
-    border: 1px solid #edf0f5;
-    border-radius: 12px;
-    background: #f8fafc;
+.mail-meta-tags :deep(.n-tag) {
+    max-width: 100%;
 }
 
-.meta-label,
-.meta-value {
-    display: block;
-    min-width: 0;
+.mail-meta-tags :deep(.n-tag__content) {
     overflow-wrap: anywhere;
     word-break: break-word;
-}
-
-.meta-label {
-    margin-bottom: 3px;
-    color: #64748b;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-.meta-value {
-    color: #334155;
-    font-size: 13px;
-    line-height: 1.45;
 }
 
 .mail-content-card {
@@ -322,7 +294,6 @@ h1 {
 }
 
 .telegram-mail-page.is-dark .mail-eyebrow,
-.telegram-mail-page.is-dark .meta-label,
 .telegram-mail-page.is-dark .content-hint,
 .telegram-mail-page.is-dark .mail-footer {
     color: #9ca3af;
@@ -331,15 +302,6 @@ h1 {
 .telegram-mail-page.is-dark h1,
 .telegram-mail-page.is-dark .content-title {
     color: #f8fafc;
-}
-
-.telegram-mail-page.is-dark .meta-item {
-    border-color: #303744;
-    background: #20252d;
-}
-
-.telegram-mail-page.is-dark .meta-value {
-    color: #d1d5db;
 }
 
 .telegram-mail-page.is-dark .content-heading {
@@ -360,13 +322,8 @@ h1 {
         padding: 16px;
     }
 
-    .mail-meta {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .meta-item {
-        padding: 9px 11px;
+    .mail-meta-tags {
+        gap: 6px;
     }
 
     .mail-content-card {
