@@ -33,7 +33,7 @@
 
 ### Improvements
 
-- chore: |Deployment| Migrate the production web, API and Telegram Mini App primary endpoints from `lxw.us.kg` to `865455.xyz`, retaining the old domains as rollback aliases
+- chore: |Deployment| Migrate the production web, API and Telegram Mini App primary endpoints from `lxw.us.kg` to `865455.xyz`, using `mail.865455.xyz` for the main web app
 - chore: |Deployment| Remove the migrated `temp.lxw.us.kg`, `tg.lxw.us.kg` and `api.lxw.us.kg` legacy endpoints
 - fix: |Telegram Mini App| Restore the compact tag-style mail metadata above the body while preserving body scrolling, dark mode and email-content layout
 - fix: |Frontend| Unify core mailbox, email-address, user-account, and Admin Console terminology, and fill missing additional-locale strings for mail status and remote images (issue #1129)
