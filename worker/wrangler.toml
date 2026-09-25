@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 keep_vars = true
 
 routes = [
-  { pattern = "temp-api.865455.xyz", custom_domain = true }
+  { pattern = "mail-api.865455.xyz", custom_domain = true }
 ]
 
 [triggers]

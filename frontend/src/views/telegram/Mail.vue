@@ -88,6 +88,8 @@ const handleFrameLoad = () => {
     window.setTimeout(fitFrame, 800)
 }
 
+let mailLoadStarted = false
+
 const fetchMailData = async () => {
     try {
         const res = await api.fetch('/telegram/get_mail', {
@@ -107,19 +109,34 @@ const fetchMailData = async () => {
     }
 }
 
-watch(telegramApp, async () => {
-    if (telegramApp.value.initData) {
-        curMail.value = await fetchMailData()
-        await nextTick()
-        fitFrame()
+const loadMailWhenTelegramReady = async () => {
+    if (mailLoadStarted) return
+    if (!telegramApp.value?.initData) {
+        await new Promise((resolve) => {
+            const stop = watch(
+                () => telegramApp.value?.initData,
+                (initData) => {
+                    if (!initData) return
+                    stop()
+                    resolve()
+                }
+            )
+            window.setTimeout(() => {
+                stop()
+                resolve()
+            }, 10000)
+        })
     }
-})
-
-onMounted(async () => {
+    if (mailLoadStarted || !telegramApp.value?.initData) return
+    mailLoadStarted = true
     curMail.value = await fetchMailData()
     await nextTick()
     fitFrame()
-})
+}
+
+watch(() => telegramApp.value?.initData, loadMailWhenTelegramReady)
+
+onMounted(loadMailWhenTelegramReady)
 
 onBeforeUnmount(() => frameObserver.value?.disconnect())
 </script>

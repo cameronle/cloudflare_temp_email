@@ -24,6 +24,7 @@
 
 ### Bug Fixes
 
+- fix: |Telegram Mini App| 等待 Telegram WebApp 身份数据初始化后再加载邮件，避免页面加载竞态导致 Network Error
 - fix: |邮箱鉴权| 修复旧邮箱凭证仍可访问 API、Telegram 越权解绑、重新绑定失效及外部发信保存凭证的问题，区分认证错误以准确提示站点及管理员登录，并将 E2E 测试接口移出生产代码
 - fix: |Frontend| 修复 AdSense 脚本包含不受支持的 `data-onload` 和 `data-onerror` 属性
 - fix: |Admin| 修复权限设置加载完成前短暂显示管理员密码输入框的问题
