@@ -8,6 +8,8 @@
 
 ## v1.8.0(main)
 
+- fix: |CI/Deployment| Actions 仅在 `main` / `production` 的相关路径推送时运行；停用并归档 PR/评论、定时、标签和旧部署链，连续推送取消旧任务；两个 Pages 项目仅对 `main` 构建预览，生产保留 `production`，纯 CI/更新日志改动不触发 Cloudflare 构建
+
 ### Features
 
 - feat: |API| 新增服务端解析邮件接口 `/api/parsed_mails` 与 `/api/parsed_mail/:id`，直接返回 `sender` / `subject` / `text` / `html` / `attachments` 元信息（复用 `commonParseMail`），AI agent 侧不再需要引入 MIME 解析器
