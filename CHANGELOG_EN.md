@@ -8,6 +8,8 @@
 
 ## v1.11.0(main)
 
+- fix: |CI/Deployment| Run Actions only for relevant-path pushes to `main` / `production`; archive PR/comment, schedule, tag and legacy deployment workflows and cancel superseded runs; restrict both Pages previews to `main`, retain `production` releases, and skip Cloudflare builds for CI/changelog-only changes
+
 ### Features
 
 - feat: |Frontend Next| Add a `frontend-next` Vite React non-admin mail client using shadcn CLI-generated components in the reference B style, covering address create/restore, inbox, compose, address management, user account integration, settings, and light/dark theme support
