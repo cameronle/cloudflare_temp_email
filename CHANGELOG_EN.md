@@ -8,6 +8,8 @@
 
 ## v1.12.0(main)
 
+- fix: |CI/Deployment| Run Actions only for relevant-path pushes to `main` / `production`; archive PR/comment, schedule, tag and legacy deployment workflows and cancel superseded runs; restrict both Pages previews to `main`, retain `production` releases, and skip Cloudflare builds for CI/changelog-only changes
+
 ### Features
 
 - feat: |Mailbox Login| Add a password-only switch that rejects legacy credentials, 30-day mailbox login JWTs renewed with less than 7 days remaining, and password reset for bound mailboxes
