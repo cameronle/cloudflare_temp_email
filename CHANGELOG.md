@@ -8,6 +8,8 @@
 
 ## v1.11.1(main)
 
+- fix: |CI/Deployment| Actions 仅在 `main` / `production` 的相关路径推送时运行；停用并归档 PR/评论、定时、标签和旧部署链，连续推送取消旧任务；两个 Pages 项目仅对 `main` 构建预览，生产保留 `production`，纯 CI/更新日志改动不触发 Cloudflare 构建
+
 ### Features
 
 - feat: |Admin| 数据库页面新增 D1 存储容量展示，支持选择并保存 Free 或 Workers Paid 套餐，对比当前数据库大小和容量上限

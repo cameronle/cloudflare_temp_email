@@ -8,6 +8,8 @@
 
 ## v1.11.1(main)
 
+- fix: |CI/Deployment| Run Actions only for relevant-path pushes to `main` / `production`; archive PR/comment, schedule, tag and legacy deployment workflows and cancel superseded runs; restrict both Pages previews to `main`, retain `production` releases, and skip Cloudflare builds for CI/changelog-only changes
+
 ### Features
 
 - feat: |Admin| Add D1 storage capacity details to the database page, with persistent Free and Workers Paid plan selection and a comparison between the current database size and capacity limit

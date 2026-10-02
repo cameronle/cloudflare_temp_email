@@ -1,12 +1,25 @@
 name: End-to-End Tests
 
 on:
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+  push:
+    branches: [main, production]
+    paths:
+      - 'worker/**'
+      - 'frontend/**'
+      - 'pages/**'
+      - 'db/**'
+      - 'mail-parser-wasm/**'
+      - 'smtp_proxy_server/**'
+      - 'e2e/**'
+      - '.github/workflows/e2e.yml'
+
+concurrency:
+  group: e2e-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   e2e:
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
