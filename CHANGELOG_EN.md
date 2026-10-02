@@ -8,6 +8,8 @@
 
 ## v1.13.0(main)
 
+- fix: |CI/Deployment| Run Actions only for relevant-path pushes to `main` / `production`; archive PR/comment, schedule, tag and legacy deployment workflows and cancel superseded runs; restrict both Pages previews to `main`, retain `production` releases, and skip Cloudflare builds for CI/changelog-only changes
+
 ### Features
 
 - feat: |CLI| Add standalone read-only `tmctl`: isolated profiles, admin/mailbox authentication, unknown-address mail, new-mail polling, private MIME/attachment export, statistics and cleanup-policy inspection; no Worker or routing changes
