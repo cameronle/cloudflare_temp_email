@@ -64,4 +64,4 @@ export async function credentials(options, profile) {
   return validateCredentials(c, profile);
 }
 export const privilegeWarning =
-  "Client commands are read-only; the underlying admin password/mailbox JWT is NOT a read-only credential. Local logout does not revoke server access.";
+  "Client allowlists do not restrict server credentials: admin passwords/mailbox JWTs retain full privileges. Writes require explicit confirmation. Local logout does not revoke server access.";

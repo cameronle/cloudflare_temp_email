@@ -3,3 +3,5 @@ bin/
 THIRD_PARTY_NOTICES
 LICENSE
 *.tgz
+__pycache__/
+*.pyc

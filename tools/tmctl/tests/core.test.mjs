@@ -23,7 +23,7 @@ test("standalone help/version, private bound profile and public health", async (
   try {
     const ver = await cli(["--version"], { home });
     assert.equal(ver.code, 0);
-    assert.match(ver.stdout, /0.1.0/);
+    assert.match(ver.stdout, /0\.2\.0/);
     const help = await cli(["--help"], { home });
     assert.equal(help.code, 0);
     assert.match(help.stdout, /mail/);

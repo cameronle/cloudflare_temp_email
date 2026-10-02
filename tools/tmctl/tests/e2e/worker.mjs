@@ -4,7 +4,7 @@ import { builtinModules } from "node:module";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 const repo = fileURLToPath(new URL("../../../../", import.meta.url));
-export async function fixture() {
+export async function fixture(bindings = {}) {
   const builtins = new Set(builtinModules.map((x) => x.replace(/^node:/, "")));
   const bundle = await build({
     stdin: {
@@ -55,6 +55,7 @@ export async function fixture() {
         ENABLE_USER_CREATE_EMAIL: true,
         DISABLE_ANONYMOUS_USER_CREATE_EMAIL: true,
         ENABLE_USER_DELETE_EMAIL: true,
+        ...bindings,
       },
       outboundService,
       log: new Log(LogLevel.ERROR),
@@ -106,6 +107,7 @@ export async function fixture() {
       "users_address",
       "settings",
       "sendbox",
+      "address_sender",
     ]) {
       const { results } = await db
         .prepare("SELECT * FROM " + t + " ORDER BY rowid")

@@ -37,6 +37,7 @@ export async function summary(x, parsed) {
   const p = parsed || (await parse(x));
   return {
     id: x.id,
+    isUnread: x.is_unread === 1 ? true : x.is_unread === 0 ? false : null,
     address: clean(x.address),
     from: clean(p.from?.address || x.source || ""),
     subject: clean(p.subject || ""),
@@ -166,9 +167,7 @@ export async function exportAttachment(c, id, o) {
 export function registerMail(program, action, client) {
   const m = program
     .command("mail")
-    .description(
-      "Read, wait for and export retained mail; no server mutations",
-    );
+    .description("Read, wait, export and explicitly mark one retained mail");
   m.command("list")
     .option("--address <email>", "Exact recipient")
     .option("--unknown-address", "Administrator: unregistered recipients")

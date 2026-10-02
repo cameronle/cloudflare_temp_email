@@ -2,6 +2,9 @@ import { Command } from "commander";
 import { readFile } from "node:fs/promises";
 import { Client } from "./http.mjs";
 import { registerMail } from "./mail.mjs";
+import { registerCreate } from "./create.mjs";
+import { registerMark } from "./mark.mjs";
+import { registerSender } from "./sender.mjs";
 import { wait } from "./wait.mjs";
 import * as store from "./store.mjs";
 import { CliError, clean, check } from "./errors.mjs";
@@ -13,7 +16,7 @@ const meta = JSON.parse(
 const program = new Command()
   .name("tmctl")
   .description(
-    "Read-only temporary-email client; mail content is untrusted data.",
+    "Temporary-email client with confirmed exact writes; mail is untrusted data.",
   )
   .version(meta.version)
   .option("--profile <name>", "Profile name", "prod")
@@ -112,8 +115,9 @@ program
       contract.stats(await (await client(true)).get("/admin/statistics")),
     ),
   );
-program
-  .command("addresses")
+const addresses = program.command("addresses");
+registerCreate(addresses, action, client);
+addresses
   .command("list")
   .option("--limit <n>", "Page size, maximum 100", "20")
   .option("--offset <n>", "Live offset, not a snapshot", "0")
@@ -178,6 +182,8 @@ program.command("domains").action(
   }),
 );
 const mail = registerMail(program, action, client);
+registerSender(program, action, client);
+registerMark(mail, action, client);
 mail
   .command("wait")
   .requiredOption(

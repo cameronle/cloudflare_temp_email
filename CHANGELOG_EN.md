@@ -12,6 +12,8 @@
 
 ### Features
 
+- feat: |CLI| `tmctl 0.2.0` adds admin custom/random mailbox creation with private mailbox profiles, exact-ID read/unread marking, retained outbox metadata and send-grant/balance queries; require explicit write approval, dry-run, no automatic write retries and readback verification; no sending, deletion, database cleanup or production Worker changes
+
 - feat: |CLI| Add standalone read-only `tmctl`: isolated profiles, admin/mailbox authentication, unknown-address mail, new-mail polling, private MIME/attachment export, statistics and cleanup-policy inspection; no Worker or routing changes
 
 - feat: |User| Search bound mailboxes by email address in address management with accurate pagination (issue #1156)
