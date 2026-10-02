@@ -4,11 +4,11 @@ on:
   push:
     paths:
       - "smtp_proxy_server/**"
-    tags:
-      - "*"
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main, production]
+
+concurrency:
+  group: smtp-image-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   REGISTRY: ghcr.io
@@ -16,6 +16,7 @@ env:
 
 jobs:
   build-and-push-image:
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
