@@ -9,9 +9,10 @@
 - 旧工作流保留在 `.github/disabled-workflows/` 作为不可执行参考；不要直接移回或用上游同步覆盖这套规则。
 - 两个 Git 连接的 Cloudflare Pages 项目（`temp-mail-865455-git`、`temp-mail-865455-telegram-git`）保持 `production` 为生产分支；预览使用 `custom` 白名单，仅包含 `main`，排除列表为空。
 - 要进行预览，先把改动合并/推进到 `main`；仅推送 feature 分支或创建 PR 不产生预览。保留仓库所有者直推 `main` 的能力，不强制 PR-only。
-- Pages 与生产 Worker 构建均排除 `.github/**`、`CHANGELOG.md`、`CHANGELOG_EN.md`，其余路径保留原有规则；仅改 CI/更新日志时不会构建预览或重新部署生产。
+- Pages 用 `.github/*` 排除 CI 目录（单个 `*` 已匹配跨目录路径，勿套用 GitHub 的 `**` 语法）；Worker Builds 用 `.github/**`。两者均排除 `CHANGELOG.md`、`CHANGELOG_EN.md`，其余路径保留原有规则；仅改 CI/更新日志时跳过构建。Pages 的空提交、20 个及以上提交或 3000 个及以上文件变更会绕过路径过滤；无代码部署测试不要使用空提交。
 - Worker Builds 仍只允许 `production`。Pages 预览不等于后端/数据库隔离，可能仍连接生产 API。
 - Cloudflare 分支/路径限制是账户端配置；克隆仓库或恢复工作流文件不会自动恢复这些限制。应回读 `source.config` 和 Workers Builds trigger 验证。
+- Pages 会为已跳过的推送留下 `queued/idle` 的记录；必须检查 `is_skipped=true`、`skip_reason` 和各阶段未开始，不能误判成排队构建。
 
 ## English
 
@@ -22,6 +23,7 @@
 - Archived workflows in `.github/disabled-workflows/` are reference-only. Do not reactivate them or overwrite branch restrictions during upstream synchronization.
 - Both connected Pages projects use `production` for production and a custom preview allowlist of exactly `main`, with no preview exclusions.
 - Merge/promote changes to `main` before previewing; feature pushes and PR creation do not produce previews. Owner direct pushes to `main` remain possible; this is not a mandatory-PR policy.
-- Pages and Worker Builds exclude `.github/**`, `CHANGELOG.md` and `CHANGELOG_EN.md`; other path settings are unchanged. CI/changelog-only commits do not rebuild preview/production.
+- Pages exclude `.github/*` (a single star matches nested paths; do not apply GitHub double-star syntax); Worker Builds exclude `.github/**`. Both exclude `CHANGELOG.md` and `CHANGELOG_EN.md`. Normal CI/changelog-only pushes skip builds; Pages bypass path checks for zero-file pushes, 20+ commits or 3000+ changed files. Do not test path filters with an empty commit.
 - Worker Builds remain production-only. Frontend previews may still call the production API and are not isolated backend/database environments.
 - Cloudflare settings live in the account and must be verified separately by reading Pages source config and the Worker build trigger.
+- Skipped Pages pushes can leave queued/idle records. Inspect `is_skipped`, `skip_reason` and unset stage timestamps before treating them as queued builds.
