@@ -8,6 +8,8 @@
 
 ## v1.13.0(main)
 
+- fix: |CI/Deployment| Actions 仅在 `main` / `production` 的相关路径推送时运行；停用并归档 PR/评论、定时、标签和旧部署链，连续推送取消旧任务；两个 Pages 项目仅对 `main` 构建预览，生产保留 `production`，纯 CI/更新日志改动不触发 Cloudflare 构建
+
 ### Features
 
 - feat: |用户系统| 邮箱地址管理支持按地址关键字搜索已绑定邮箱，并保持分页结果准确（issue #1156）
