@@ -6,6 +6,11 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
+## tmctl 0.2.0（生产发布）
+
+- feat: |CLI| 发布本地邮箱客户端：管理员创建邮箱并私有保存独立 Profile、单邮箱身份精确标记已读/未读、发件箱与发信授权/余额查询；写入需 `--yes`，支持 dry-run，错误不自动重试，生产辅助程序保持只读；不包含发信、删除或清库。
+- chore: |Deployment| 仅同步 `tools/tmctl` 与其 Linux/macOS 验证流程；保留 v1.12.0 生产应用、Telegram 修复、域名、Worker 配置和数据库结构，不合并无关 v1.13.0 上游升级。
+
 ## v1.12.0(main)
 
 - fix: |CI/Deployment| Actions 仅在 `main` / `production` 的相关路径推送时运行；停用并归档 PR/评论、定时、标签和旧部署链，连续推送取消旧任务；两个 Pages 项目仅对 `main` 构建预览，生产保留 `production`，纯 CI/更新日志改动不触发 Cloudflare 构建

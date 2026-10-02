@@ -1,0 +1,48 @@
+name: tmctl verification
+on:
+  push:
+    branches: [main, production]
+    paths: ['tools/tmctl/**', 'worker/**', 'db/**', '.github/workflows/tmctl.yml']
+permissions:
+  contents: read
+concurrency:
+  group: tmctl-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production') }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.2'
+          cache: npm
+          cache-dependency-path: tools/tmctl/package-lock.json
+      - uses: pnpm/action-setup@v4
+        with:
+          version: '10.10.0'
+      - name: Install application dependencies for real Worker tests
+        run: pnpm --dir worker install --frozen-lockfile
+      - name: Install CLI development dependencies
+        working-directory: tools/tmctl
+        run: npm ci
+      - name: Verify source, installed package, isolation and licenses
+        working-directory: tools/tmctl
+        run: |
+          npm audit
+          npm test
+          npm run test:package
+      - name: Build portable tarball
+        working-directory: tools/tmctl
+        run: npm pack
+      - uses: actions/upload-artifact@v6
+        with:
+          name: tmctl-${{ matrix.os }}-${{ github.sha }}
+          path: tools/tmctl/*.tgz
+          if-no-files-found: error

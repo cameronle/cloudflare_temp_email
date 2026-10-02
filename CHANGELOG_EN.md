@@ -6,6 +6,11 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
+## tmctl 0.2.0 (production release)
+
+- feat: |CLI| Release the local mail client with administrator mailbox creation/private profiles, exact mailbox-authenticated read markers, retained outbox and sender grant/balance queries; require `--yes`, support dry-runs and never retry uncertain writes. The production launcher remains read-only; no sending, deletion or database cleanup.
+- chore: |Deployment| Promote only `tools/tmctl` and its Linux/macOS verification workflow; retain the v1.12.0 production application, Telegram fixes, domains, Worker configuration and database schema, without unrelated v1.13.0 upstream upgrades.
+
 ## v1.12.0(main)
 
 - fix: |CI/Deployment| Run Actions only for relevant-path pushes to `main` / `production`; archive PR/comment, schedule, tag and legacy deployment workflows and cancel superseded runs; restrict both Pages previews to `main`, retain `production` releases, and skip Cloudflare builds for CI/changelog-only changes
