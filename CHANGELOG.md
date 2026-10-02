@@ -8,6 +8,8 @@
 
 ## v1.10.0(main)
 
+- fix: |CI/Deployment| Actions 仅在 `main` / `production` 的相关路径推送时运行；停用并归档 PR/评论、定时、标签和旧部署链，连续推送取消旧任务；两个 Pages 项目仅对 `main` 构建预览，生产保留 `production`，纯 CI/更新日志改动不触发 Cloudflare 构建
+
 ### Features
 
 - feat: |Frontend| 外观设置新增“自动加载远程内容”开关，默认关闭；关闭后邮件 HTML 中的远程图片默认以占位图显示，并支持单封邮件临时加载远程内容（issue #1073）

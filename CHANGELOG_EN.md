@@ -8,6 +8,8 @@
 
 ## v1.10.0(main)
 
+- fix: |CI/Deployment| Run Actions only for relevant-path pushes to `main` / `production`; archive PR/comment, schedule, tag and legacy deployment workflows and cancel superseded runs; restrict both Pages previews to `main`, retain `production` releases, and skip Cloudflare builds for CI/changelog-only changes
+
 ### Features
 
 - feat: |Frontend| Add an Appearance toggle for automatically loading remote content, disabled by default; when disabled, HTML mail shows blocked-image placeholders by default and supports temporarily loading remote content for a single mail (issue #1073)
