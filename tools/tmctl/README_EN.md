@@ -55,7 +55,7 @@ Global options: `--profile NAME`, `--request-timeout 15000` (milliseconds), `--j
 - Regressing IDs fail with `WATCH_RESET`; a saturated page of 100 new messages fails with `WATCH_GAP`. Not a lossless stream: concurrent deletion, ID reuse and high volume require a server cursor API.
 - Offset pagination is live, not a snapshot. Counts exist only at offset zero (`totalAtFirstPage=null` later). The server sends full MIME in list responses, so avoid aggressive large-page polling.
 - Default output is readable JSON. `--json` returns `{schemaVersion:1,ok,command,profile,data,warnings}`; errors return `{schemaVersion:1,ok:false,command,error}` without sensitive input.
-- Exit codes: 0 success, 2 argument/local-safety failure, 3 authentication/permission, 4 unavailable mail/no match before wait timeout, 5 network/protocol/size/parse/watch-integrity failure. A request deadline can yield `5/TIMEOUT`.
+- Exit codes: 0 success, 2 argument/local-safety failure, 3 authentication/permission, 4 unavailable mail/no match before wait timeout, 5 network/protocol/size/parse/watch-integrity failure. A shorter request timeout or baseline failure yields `5/TIMEOUT`; an overall deadline after baseline establishment consistently yields `4/NO_NEW_MAIL`.
 
 ## Build and verify
 

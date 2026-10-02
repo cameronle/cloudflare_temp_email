@@ -43,9 +43,11 @@ export class Client {
     for (const [k, v] of Object.entries(query))
       url.searchParams.set(k, String(v));
     const abort = new AbortController();
+    const remaining = deadline - Date.now();
+    const deadlineLimited = remaining <= this.timeout;
     const timer = setTimeout(
       () => abort.abort(),
-      Math.max(1, Math.min(this.timeout, deadline - Date.now())),
+      Math.max(1, Math.min(this.timeout, remaining)),
     );
     try {
       const r = await fetch(url, {
@@ -86,13 +88,15 @@ export class Client {
       }
     } catch (e) {
       if (e instanceof CliError) throw e;
-      fail(
+      const error = new CliError(
         abort.signal.aborted ? "TIMEOUT" : "NETWORK",
         abort.signal.aborted
           ? "Request deadline exceeded."
           : "Request failed; redirects are not followed.",
         5,
       );
+      error.deadlineLimited = abort.signal.aborted && deadlineLimited;
+      throw error;
     } finally {
       abort.abort();
       clearTimeout(timer);

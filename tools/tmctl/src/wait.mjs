@@ -41,6 +41,7 @@ export async function wait(c, o) {
       p = await list(c, query, deadline);
       transientFailures = 0;
     } catch (e) {
+      if (e.code === "TIMEOUT" && e.deadlineLimited) break;
       if (
         ["RATE_LIMITED", "NETWORK", "HTTP_ERROR"].includes(e.code) &&
         transientFailures < 3

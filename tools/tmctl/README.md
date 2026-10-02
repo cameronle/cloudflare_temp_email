@@ -67,7 +67,7 @@ tmctl --json stats
 - ID 回退报 `WATCH_RESET`；一页 100 封全为新邮件报 `WATCH_GAP`。它不是无损消息流：后端现有 ID/offset API 无法保证并发删除、同 ID 重用或巨大流量下的无遗漏。高流量场景需要后端 cursor API。
 - 列表 `--offset` 是实时分页，不是快照；只有第一页返回总数，后续页 `totalAtFirstPage=null`。API 列表本身含完整 MIME，避免频繁大页轮询。
 - 默认输出易读 JSON；`--json` 为固定封套 `{schemaVersion:1,ok,command,profile,data,warnings}`。错误为 `{schemaVersion:1,ok:false,command,error}`，不含敏感输入。成功警告字段说明完整凭据权限。
-- 退出码：`0` 成功；`2` 参数/本地安全检查失败；`3` 需要登录/拒绝权限；`4` 邮件不存在或等待无匹配超时；`5` 网络/协议/大小/解析/轮询完整性失败。请求达到 deadline 时为 `5/TIMEOUT`。
+- 退出码：`0` 成功；`2` 参数/本地安全检查失败；`3` 需要登录/拒绝权限；`4` 邮件不存在或等待无匹配超时；`5` 网络/协议/大小/解析/轮询完整性失败。单请求超时或未能取得基线为 `5/TIMEOUT`；已取得基线后的总等待超时统一为 `4/NO_NEW_MAIL`。
 
 ## 验证
 
